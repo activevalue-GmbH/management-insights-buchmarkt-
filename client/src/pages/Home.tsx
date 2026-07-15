@@ -5,9 +5,9 @@
  */
 import { useEffect, useMemo, useState } from "react";
 
-const LOGO_URL = "/manus-storage/active-value-logo_ff5e185c.png";
-const HERO_IMAGE_URL = "/manus-storage/buchmarkt-signalstoerung-hero_91a7c97e.png";
-const ATTENTION_IMAGE_URL = "/manus-storage/buchmarkt-signalstoerung-nutzung_abe785b3.png";
+const ASSET_BASE = import.meta.env.BASE_URL;
+const LOGO_URL = `${ASSET_BASE}assets/active-value-logo.png`;
+const HERO_IMAGE_URL = `${ASSET_BASE}assets/buchmarkt-hero.webp`;
 
 const trackedKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "account"];
 
@@ -57,10 +57,25 @@ function useReveal() {
   }, []);
 }
 
+function ChapterMarker({ index }: { index: string }) {
+  const [number, label] = index.split(" · ", 2);
+
+  return (
+    <div className="chapter-marker" aria-label={index}>
+      <span className="chapter-number" aria-hidden="true">
+        {number}
+      </span>
+      <span className="chapter-label" aria-hidden="true">
+        {label}
+      </span>
+    </div>
+  );
+}
+
 function SectionHead({ index, children }: { index: string; children: React.ReactNode }) {
   return (
     <div className="section-head" data-reveal>
-      <div className="section-index">{index}</div>
+      <ChapterMarker index={index} />
       <h2>{children}</h2>
     </div>
   );
@@ -75,8 +90,8 @@ function MailCta() {
     const trackingLine = tracking.length
       ? `\n\nReferenz: ${tracking.map(([key, value]) => `${key}=${value}`).join(" | ")}`
       : "";
-    const body = `Hallo Anton,\n\nwir möchten das Management Briefing zum Buchmarkt besprechen.${trackingLine}\n\nViele Grüße`;
-    return `mailto:anton.klees@active-value.de?subject=${encodeURIComponent("Management Briefing Buchmarkt")}&body=${encodeURIComponent(body)}`;
+    const body = `Hallo Anton,\n\nwir möchten die Management-Präsentation zum Buchmarkt anfragen.${trackingLine}\n\nViele Grüße`;
+    return `mailto:anton.klees@active-value.de?subject=${encodeURIComponent("Management-Präsentation Buchmarkt")}&body=${encodeURIComponent(body)}`;
   }, []);
 
   const handleClick = () => {
@@ -90,7 +105,7 @@ function MailCta() {
 
   return (
     <a className="button" data-insight-id="buchmarkt-01" href={href} onClick={handleClick}>
-      Termin mit Anton anfragen
+      Präsentation anfragen
       <span aria-hidden="true">↗</span>
     </a>
   );
@@ -126,7 +141,7 @@ export default function Home() {
           <div className="header-meta">
             <span className="series">Management Insights · #01 · Juli 2026</span>
             <a className="header-cta" href="#kontakt">
-              Briefing anfragen
+              Präsentation anfragen
             </a>
           </div>
         </div>
@@ -184,7 +199,7 @@ export default function Home() {
               Aufmerksamkeit und Empfehlung, KI-Systeme beantworten Fragen, bevor ein Nutzer
               überhaupt eine Verlagsseite oder Buchhandlung erreicht.
             </p>
-            <div className="assumption-box" data-reveal>
+            <div className="thesis-box" data-reveal>
               <div className="label">Unsere These</div>
               <blockquote>
                 Der Kunde war nie kontrollierbar. Neu ist, wie viel Einfluss auf Sichtbarkeit,
@@ -197,12 +212,12 @@ export default function Home() {
         <section className="section" id="signale">
           <div className="shell">
             <SectionHead index="02 · Die Signale / Marktdaten">
-              Der Buchmarkt verliert junge Käufer schneller, als er neue Nutzung erschließt.
+              Junge Zielgruppen entfernen sich sichtbar vom klassischen Buchkauf.
             </SectionHead>
             <p className="lead" data-reveal>
-              Das ist der Kern des Problems. Nicht irgendwann, sondern jetzt. Junge Menschen verlieren
-              nicht grundsätzlich das Interesse an Geschichten – der klassische Buchmarkt erreicht sie
-              nur nicht mehr selbstverständlich und nicht mehr in seiner gesamten Breite.
+              Junge Menschen verlieren nicht grundsätzlich das Interesse an Geschichten. Der klassische
+              Buchmarkt erreicht sie jedoch nicht mehr selbstverständlich und nicht mehr in seiner
+              gesamten Breite.
             </p>
 
             <div className="signal-grid">
@@ -279,28 +294,21 @@ export default function Home() {
                 </p>
               </div>
             </aside>
+            <div className="thesis-box" data-reveal>
+              <div className="label">Unsere These</div>
+              <blockquote>
+                Der Buchmarkt verliert junge Käufer schneller, als er neue Nutzung erschließt.
+              </blockquote>
+            </div>
           </div>
         </section>
 
         <section className="section interpretation" id="interpretation">
-          <div className="shell split">
-            <figure className="stat-visual" data-reveal>
-              <img
-                src={ATTENTION_IMAGE_URL}
-                alt="Ein aufgeschlagenes Buch wird von analogem TV-Rauschen und einem unterbrochenen Signal überlagert."
-                loading="lazy"
-              />
-              <figcaption>
-                <strong>6,3 %</strong>
-                <span>E-Book-Umsatzanteil 2025</span>
-              </figcaption>
-            </figure>
-
-            <div className="split-copy" data-reveal>
-              <div className="section-index">03 · Die neue Nutzung</div>
+          <div className="shell">
+            <div className="split-copy interpretation-copy" data-reveal>
+              <ChapterMarker index="03 · Die neue Nutzung" />
               <h2>
-                Audio wächst nicht als Zusatzgeschäft. Es ersetzt zunehmend das klassische
-                Leseritual.
+                Audio verändert nicht nur das Format, sondern die Nutzungssituation.
               </h2>
               <p>
                 Ein E-Book verlagert das Lesen auf einen Bildschirm, verlangt aber weiterhin Zeit,
@@ -319,9 +327,12 @@ export default function Home() {
                 US-Frühindikator auf Basis der im Atlantic-Beitrag zusammengeführten Erhebungen. Die
                 Zahl wird nicht als deutsche Marktkennzahl verwendet.
               </div>
-              <div className="conclusion-line">
-                Damit wird aus einem Formattrend eine strukturelle Veränderung: Der Wandel führt von
-                einer konzentrierten Lesehandlung zu einer situativen, alltagsintegrierten Nutzung.
+              <div className="thesis-box thesis-box--inverse">
+                <div className="label">Unsere These</div>
+                <blockquote>
+                  Audio wächst nicht als Zusatzgeschäft. Es ersetzt zunehmend das klassische
+                  Leseritual.
+                </blockquote>
               </div>
             </div>
           </div>
@@ -330,7 +341,7 @@ export default function Home() {
         <section className="section economics" id="wirtschaft">
           <div className="shell">
             <SectionHead index="04 · Die Konsequenz / wirtschaftliche Lesart">
-              Inhalte bleiben bei den Verlagen. Kundenzugang, Daten und Marge wandern zu Plattformen.
+              Inhaltseigentum allein sichert weder Kundenzugang noch Wertschöpfung.
             </SectionHead>
             <p className="lead" data-reveal>
               Wenn Aufmerksamkeit, Empfehlung, Nutzung und Bezahlung zunehmend über Plattformen und
@@ -352,9 +363,12 @@ export default function Home() {
                 </article>
               ))}
             </div>
-            <div className="economics-claim" data-reveal>
-              Inhalte bleiben die Grundlage. <em>Die wirtschaftliche Bedrohung entsteht dort, wo
-              Plattformen Kundenzugang, Nutzungsdaten und Marge besetzen.</em>
+            <div className="thesis-box" data-reveal>
+              <div className="label">Unsere These</div>
+              <blockquote>
+                Inhalte bleiben die Grundlage. Die wirtschaftliche Bedrohung entsteht dort, wo
+                Plattformen Kundenzugang, Nutzungsdaten und Marge besetzen.
+              </blockquote>
             </div>
           </div>
         </section>
@@ -371,26 +385,6 @@ export default function Home() {
                 partizipieren. Ihre Stärke liegt darin, Nachfrage zu bündeln, Empfehlungen zu
                 steuern, Nutzung zu vereinfachen und Kundenbeziehungen dauerhaft zu besetzen.
               </p>
-              <figure
-                className="value-visual value-disruption"
-                data-reveal
-                role="img"
-                aria-label="Ein Buch wird von analogem TV-Rauschen und horizontalen Signalabbrüchen überlagert."
-              >
-                <div className="value-tv-noise" aria-hidden="true">
-                  <div className="book-silhouette">
-                    <span className="book-cover" />
-                    <span className="book-pages" />
-                  </div>
-                  <span className="signal-break signal-break--one" />
-                  <span className="signal-break signal-break--two" />
-                  <span className="signal-break signal-break--three" />
-                </div>
-                <figcaption>
-                  <span>Signalstörung</span>
-                  <strong>Inhalt ≠ Kundenzugang</strong>
-                </figcaption>
-              </figure>
             </div>
 
             <ol className="value-flow" aria-label="Konzeptionelle Wertschöpfungskette" data-reveal>
@@ -414,10 +408,13 @@ export default function Home() {
               Konzeptionelle Darstellung, keine Messdaten. Sie zeigt die strategische Verschiebung
               zwischen den Stufen, nicht deren quantitativen Anteil.
             </div>
-            <div className="conclusion-line value-conclusion" data-reveal>
-              Verlage besitzen weiterhin die entscheidenden Assets. Aber sie müssen diese Assets
-              zunehmend in eigene Zugänge, Nutzungssituationen und wiederkehrende Beziehungen
-              übersetzen.
+            <div className="thesis-box value-conclusion" data-reveal>
+              <div className="label">Unsere These</div>
+              <blockquote>
+                Verlage besitzen weiterhin die entscheidenden Assets. Sie müssen diese Assets jedoch
+                zunehmend in eigene Zugänge, Nutzungssituationen und wiederkehrende Beziehungen
+                übersetzen.
+              </blockquote>
             </div>
           </div>
         </section>
@@ -426,8 +423,8 @@ export default function Home() {
           <div className="shell" data-reveal>
             <div className="section-index management-index">06 · Die Managementaufgabe</div>
             <h2 className="management-question">
-              Die Managementaufgabe lautet nicht, das nächste Gewinnerformat auszuwählen.
-              <span>Sie lautet, die eigene Marktlogik rechtzeitig zu überprüfen.</span>
+              Die zentrale Führungsfrage liegt hinter Formaten, Kanälen und Zielgruppen.
+              <span>Sie betrifft die Annahmen, auf denen das heutige Geschäft beruht.</span>
             </h2>
             <div className="audience-box">
               <div className="audience-grid">
@@ -452,42 +449,14 @@ export default function Home() {
             </div>
             <p className="management-copy">
               Research kann Zahlen zusammentragen. Produktmanagement kann Formate bewerten.
-              Marketing kann Zielgruppen analysieren. Die Entscheidung, welche bisherigen Annahmen
-              über Kunden, Produkte und Wertschöpfung weiterhin tragen, bleibt eine
-              Managementaufgabe.
+              Marketing kann Zielgruppen analysieren.
             </p>
-            <div className="speed-line">
-              Wer diese Entwicklung erst im nächsten Planungszyklus prüft, entscheidet weiter auf
-              Annahmen von gestern.
-            </div>
-          </div>
-        </section>
-
-        <section className="section" id="substanz">
-          <div className="shell">
-            <SectionHead index="07 · Die Einordnung / Entscheidungsrahmen">
-              Wir haben die relevanten Marktdaten, internationalen Befunde und wirtschaftlichen
-              Folgen zu einer Entscheidungsgrundlage für Ihr Haus verdichtet.
-            </SectionHead>
-            <p className="lead" data-reveal>
-              Die Kurzfassung zeigt das Muster. Das individuell vorbereitete Briefing klärt, was sich
-              tatsächlich verändert, welche Teile des Geschäftsmodells betroffen sind und welche
-              Weichen jetzt geprüft werden sollten.
-            </p>
-            <div className="proof-grid">
-              {[
-                ["Käufer und Umsatz", "Entwicklung des Gesamtmarktes und der Altersgruppen"],
-                ["Formate und Modelle", "Buch, E-Book, Download, Streaming und Abonnement"],
-                ["Nutzungsrituale", "Wie junge Zielgruppen Inhalte entdecken, auswählen und konsumieren"],
-                ["Kundenzugang", "Plattformen, Empfehlung, Daten und direkte Beziehung"],
-                ["Vermögenswerte", "Backlist, Rechte, Autorinnen, Autoren und Marken"],
-                ["Managementfolgen", "Strategie, Portfolio, Produktentwicklung und Weichenstellungen"],
-              ].map(([title, text]) => (
-                <div className="proof-item" data-reveal key={title}>
-                  <strong>{title}</strong>
-                  <span>{text}</span>
-                </div>
-              ))}
+            <div className="thesis-box thesis-box--inverse">
+              <div className="label">Unsere These</div>
+              <blockquote>
+                Die Entscheidung, welche bisherigen Annahmen über Kunden, Produkte und Wertschöpfung
+                weiterhin tragen, bleibt eine Managementaufgabe.
+              </blockquote>
             </div>
           </div>
         </section>
@@ -495,21 +464,16 @@ export default function Home() {
         <section className="section executive-summary" id="fazit">
           <div className="shell">
             <div className="executive-summary-head" data-reveal>
-              <div className="section-index">08 · Fazit / Entscheidungspunkt</div>
-              <h2>Vier Entwicklungen. Eine Managementfrage.</h2>
+              <div className="section-index">07 · Fazit / Managementthese</div>
+              <h2>Die Marktlogik verschiebt sich.</h2>
             </div>
-            <div className="executive-summary-grid">
-              <p className="executive-core" data-reveal>
+            <div className="thesis-box thesis-box--summary" data-reveal>
+              <div className="label">Unsere These</div>
+              <blockquote>
                 Junge Käufer brechen weg. Neue Nutzungsrituale entstehen. Plattformen besetzen den
-                Kundenzugang. Und viele Verlage planen noch mit der Marktlogik von gestern.
-              </p>
-              <div className="executive-question" data-reveal>
-                <span>Die strategische Frage</span>
-                <strong>
-                  Welche Annahmen über Kunden, Nutzung und Wertschöpfung tragen noch – und welche
-                  müssen jetzt neu entschieden werden?
-                </strong>
-              </div>
+                Kundenzugang. Entscheidend ist, welche Annahmen über Kunden, Produkte und
+                Wertschöpfung weiterhin tragen.
+              </blockquote>
             </div>
           </div>
         </section>
@@ -517,7 +481,7 @@ export default function Home() {
         <section className="cta" id="kontakt">
           <div className="shell cta-grid">
             <div data-reveal>
-              <div className="eyebrow">Individuell vorbereitetes Management Briefing</div>
+              <div className="eyebrow">Individuell vorbereitete Management-Präsentation</div>
               <h2>
                 In 90 Minuten wird aus einer unübersichtlichen Marktbewegung eine belastbare
                 Entscheidungsgrundlage für Ihr Haus.
@@ -542,13 +506,13 @@ export default function Home() {
               </div>
             </div>
             <aside className="contact-card" data-reveal>
-              <div className="eyebrow">Gespräch öffnen</div>
-              <h3>Management Briefing anfragen</h3>
+              <div className="eyebrow">Nächster Schritt</div>
+              <h3>Präsentation anfragen</h3>
               <p>
                 Für Geschäftsführung, Verlagsleitung und die Verantwortlichen, die strategische
                 Entscheidungen vorbereiten.
               </p>
-              <div className="price-block" aria-label="Investition für das 90-minütige Management Briefing">
+              <div className="price-block" aria-label="Investition für die 90-minütige Management-Präsentation">
                 <span>Investition</span>
                 <strong>Preis auf Anfrage</strong>
                 <small>90 Minuten · individuell vorbereitet</small>
@@ -571,7 +535,11 @@ export default function Home() {
           <div>
             <div className="footer-brand">
               <img src={LOGO_URL} alt="Active Value" />
-              <span>Management Insights · Strategische Entscheidungsgrundlagen</span>
+              <div className="footer-publisher">
+                <span>Herausgeber</span>
+                <strong>active value GmbH</strong>
+                <small>Management Insights · Strategische Entscheidungsgrundlagen</small>
+              </div>
             </div>
             <strong>Quellenbasis dieser Kurzfassung</strong>
             <p>
