@@ -336,6 +336,34 @@ p {
   margin-right: min(-6vw, -4rem);
 }
 
+.hero-visual,
+.stat-visual,
+.value-visual {
+  overflow: hidden;
+  border-radius: 1.15rem 0.3rem 1.15rem 0.3rem;
+  background: var(--forest-deep);
+}
+
+.value-visual {
+  position: relative;
+}
+
+.hero-visual::after,
+.stat-visual::after,
+.value-visual::after {
+  position: absolute;
+  inset: -2% -8%;
+  z-index: 1;
+  content: "";
+  pointer-events: none;
+  opacity: 0.22;
+  background:
+    linear-gradient(90deg, transparent 0 67%, rgba(155, 198, 63, 0.38) 68%, transparent 69%),
+    repeating-linear-gradient(0deg, transparent 0 3px, rgba(255, 255, 255, 0.13) 3px 4px);
+  mix-blend-mode: screen;
+  animation: signal-shift 5.6s steps(2, end) infinite;
+}
+
 .hero-visual::before {
   position: absolute;
   inset: -1.25rem 1.25rem 1.25rem -1.25rem;
@@ -356,6 +384,7 @@ p {
   position: absolute;
   right: 0;
   bottom: 0;
+  z-index: 2;
   width: min(82%, 25rem);
   padding: 1.6rem;
   color: white;
@@ -632,6 +661,7 @@ p {
   right: -1px;
   bottom: -1px;
   left: -1px;
+  z-index: 2;
   padding: 1.75rem;
   background: linear-gradient(to top, rgba(8, 40, 30, 0.98), rgba(8, 40, 30, 0.55) 72%, transparent);
 }
@@ -1040,6 +1070,36 @@ p {
   line-height: 1.58;
 }
 
+.price-block {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 2rem;
+  padding: 1.2rem 0;
+  border-top: 1px solid rgba(8, 40, 30, 0.26);
+  border-bottom: 1px solid rgba(8, 40, 30, 0.26);
+}
+
+.price-block span,
+.price-block small {
+  font-size: 0.72rem;
+  font-weight: 750;
+  line-height: 1.35;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.price-block strong {
+  font-family: "DM Sans", sans-serif;
+  font-size: clamp(1.65rem, 2.8vw, 2.5rem);
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+.price-block small {
+  color: rgba(8, 40, 30, 0.68);
+  letter-spacing: 0.07em;
+}
+
 .button {
   display: flex;
   align-items: center;
@@ -1162,6 +1222,23 @@ p {
 .economics-grid [data-reveal]:nth-child(3),
 .proof-grid [data-reveal]:nth-child(3) {
   transition-delay: 140ms;
+}
+
+@keyframes signal-shift {
+  0%,
+  92%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.18;
+  }
+  93% {
+    transform: translate3d(-1.5%, 0, 0);
+    opacity: 0.3;
+  }
+  95% {
+    transform: translate3d(1%, 0, 0);
+    opacity: 0.14;
+  }
 }
 
 @media (max-width: 1050px) {

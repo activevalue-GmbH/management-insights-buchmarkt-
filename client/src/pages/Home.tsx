@@ -6,9 +6,9 @@
 import { useEffect, useMemo, useState } from "react";
 
 const LOGO_URL = "/manus-storage/active-value-logo_ff5e185c.png";
-const HERO_IMAGE_URL = "/manus-storage/buchmarkt-editorial-hero_3fd05683.png";
-const ATTENTION_IMAGE_URL = "/manus-storage/buchmarkt-attention-detail_4a0f8009.png";
-const VALUE_IMAGE_URL = "/manus-storage/buchmarkt-value-interface_851b31c4.png";
+const HERO_IMAGE_URL = "/manus-storage/buchmarkt-signalstoerung-hero_91a7c97e.png";
+const ATTENTION_IMAGE_URL = "/manus-storage/buchmarkt-signalstoerung-nutzung_abe785b3.png";
+const VALUE_IMAGE_URL = "/manus-storage/buchmarkt-signalstoerung-wertschoepfung_00d0dd18.png";
 
 const trackedKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "account"];
 
@@ -154,7 +154,7 @@ export default function Home() {
             <figure className="hero-visual" data-reveal>
               <img
                 src={HERO_IMAGE_URL}
-                alt="Konzeptionelle Darstellung: Buchseiten gehen in Audiowellen und digitale Empfehlungsschnittstellen über."
+                alt="Ein Buch bleibt hinter analogem TV-Graurauschen und gestörten Signallinien sichtbar."
                 fetchPriority="high"
               />
               <figcaption>
@@ -288,7 +288,7 @@ export default function Home() {
             <figure className="stat-visual" data-reveal>
               <img
                 src={ATTENTION_IMAGE_URL}
-                alt="Konzeptionelles Detail aus Buchseiten, einer digitalen Schnittstelle und einer Audiowelle."
+                alt="Ein aufgeschlagenes Buch wird von analogem TV-Rauschen und einem unterbrochenen Signal überlagert."
                 loading="lazy"
               />
               <figcaption>
@@ -376,7 +376,7 @@ export default function Home() {
               <figure className="value-visual" data-reveal>
                 <img
                   src={VALUE_IMAGE_URL}
-                  alt="Konzeptionelle Editorial-Darstellung der Stufen von Inhalt und Rechten bis zur Kundenbeziehung."
+                  alt="Bücher und Seiten werden von analogem TV-Rauschen als Sinnbild einer gestörten Wertschöpfungskette durchzogen."
                   loading="lazy"
                 />
               </figure>
@@ -515,6 +515,11 @@ export default function Home() {
                 Für Geschäftsführung, Verlagsleitung und die Verantwortlichen, die strategische
                 Entscheidungen vorbereiten.
               </p>
+              <div className="price-block" aria-label="Investition für das 90-minütige Management Briefing">
+                <span>Investition</span>
+                <strong>Preis auf Anfrage</strong>
+                <small>90 Minuten · individuell vorbereitet</small>
+              </div>
               <MailCta />
               <div className="contact-meta">
                 Anton Klees
