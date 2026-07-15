@@ -8,7 +8,6 @@ import { useEffect, useMemo, useState } from "react";
 const LOGO_URL = "/manus-storage/active-value-logo_ff5e185c.png";
 const HERO_IMAGE_URL = "/manus-storage/buchmarkt-signalstoerung-hero_91a7c97e.png";
 const ATTENTION_IMAGE_URL = "/manus-storage/buchmarkt-signalstoerung-nutzung_abe785b3.png";
-const VALUE_IMAGE_URL = "/manus-storage/buchmarkt-signalstoerung-wertschoepfung_00d0dd18.png";
 
 const trackedKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "account"];
 
@@ -198,13 +197,12 @@ export default function Home() {
         <section className="section" id="signale">
           <div className="shell">
             <SectionHead index="02 · Die Signale / Marktdaten">
-              Der Buchmarkt verliert junge Käufer in der Breite, während einzelne Genre- und
-              Communitysegmente weiter wachsen.
+              Der Buchmarkt verliert junge Käufer schneller, als er neue Nutzung erschließt.
             </SectionHead>
             <p className="lead" data-reveal>
-              Junge Menschen verlieren nicht grundsätzlich das Interesse an Geschichten. Aber der
-              klassische Buchmarkt erreicht sie nicht mehr selbstverständlich und nicht mehr in
-              seiner gesamten Breite.
+              Das ist der Kern des Problems. Nicht irgendwann, sondern jetzt. Junge Menschen verlieren
+              nicht grundsätzlich das Interesse an Geschichten – der klassische Buchmarkt erreicht sie
+              nur nicht mehr selbstverständlich und nicht mehr in seiner gesamten Breite.
             </p>
 
             <div className="signal-grid">
@@ -213,8 +211,9 @@ export default function Home() {
                   <div className="metric">
                     −30,6<span>%</span>
                   </div>
-                  <div className="bar" aria-hidden="true">
-                    <span style={{ width: "30.6%" }} />
+                  <div className="metric-context">
+                    <span>Bezugsgröße</span>
+                    <strong>Käuferzahl 2025 gegenüber 2024</strong>
                   </div>
                 </div>
                 <div>
@@ -300,8 +299,8 @@ export default function Home() {
             <div className="split-copy" data-reveal>
               <div className="section-index">03 · Die neue Nutzung</div>
               <h2>
-                Audio wächst nicht nur als Format. Es gewinnt, weil es sich in andere
-                Alltagssituationen integrieren lässt.
+                Audio wächst nicht als Zusatzgeschäft. Es ersetzt zunehmend das klassische
+                Leseritual.
               </h2>
               <p>
                 Ein E-Book verlagert das Lesen auf einen Bildschirm, verlangt aber weiterhin Zeit,
@@ -321,8 +320,8 @@ export default function Home() {
                 Zahl wird nicht als deutsche Marktkennzahl verwendet.
               </div>
               <div className="conclusion-line">
-                Der Wandel führt nicht einfach vom gedruckten zum digitalen Buch. Er führt von einer
-                konzentrierten Lesehandlung zu einer situativeren Mediennutzung.
+                Damit wird aus einem Formattrend eine strukturelle Veränderung: Der Wandel führt von
+                einer konzentrierten Lesehandlung zu einer situativen, alltagsintegrierten Nutzung.
               </div>
             </div>
           </div>
@@ -331,8 +330,7 @@ export default function Home() {
         <section className="section economics" id="wirtschaft">
           <div className="shell">
             <SectionHead index="04 · Die Konsequenz / wirtschaftliche Lesart">
-              Wirtschaftlich geht es nicht um einen zusätzlichen Absatzkanal, sondern um die
-              zukünftige Position der Verlage in der Wertschöpfungskette.
+              Inhalte bleiben bei den Verlagen. Kundenzugang, Daten und Marge wandern zu Plattformen.
             </SectionHead>
             <p className="lead" data-reveal>
               Wenn Aufmerksamkeit, Empfehlung, Nutzung und Bezahlung zunehmend über Plattformen und
@@ -355,8 +353,8 @@ export default function Home() {
               ))}
             </div>
             <div className="economics-claim" data-reveal>
-              Inhalte bleiben die Grundlage. <em>Der wirtschaftliche Vorteil entsteht aber immer
-              häufiger an der Schnittstelle zum Nutzer.</em>
+              Inhalte bleiben die Grundlage. <em>Die wirtschaftliche Bedrohung entsteht dort, wo
+              Plattformen Kundenzugang, Nutzungsdaten und Marge besetzen.</em>
             </div>
           </div>
         </section>
@@ -373,12 +371,25 @@ export default function Home() {
                 partizipieren. Ihre Stärke liegt darin, Nachfrage zu bündeln, Empfehlungen zu
                 steuern, Nutzung zu vereinfachen und Kundenbeziehungen dauerhaft zu besetzen.
               </p>
-              <figure className="value-visual" data-reveal>
-                <img
-                  src={VALUE_IMAGE_URL}
-                  alt="Bücher und Seiten werden von analogem TV-Rauschen als Sinnbild einer gestörten Wertschöpfungskette durchzogen."
-                  loading="lazy"
-                />
+              <figure
+                className="value-visual value-disruption"
+                data-reveal
+                role="img"
+                aria-label="Ein Buch wird von analogem TV-Rauschen und horizontalen Signalabbrüchen überlagert."
+              >
+                <div className="value-tv-noise" aria-hidden="true">
+                  <div className="book-silhouette">
+                    <span className="book-cover" />
+                    <span className="book-pages" />
+                  </div>
+                  <span className="signal-break signal-break--one" />
+                  <span className="signal-break signal-break--two" />
+                  <span className="signal-break signal-break--three" />
+                </div>
+                <figcaption>
+                  <span>Signalstörung</span>
+                  <strong>Inhalt ≠ Kundenzugang</strong>
+                </figcaption>
               </figure>
             </div>
 
@@ -446,8 +457,8 @@ export default function Home() {
               Managementaufgabe.
             </p>
             <div className="speed-line">
-              Wer diese Einordnung auf den nächsten Planungszyklus verschiebt, plant in der
-              Zwischenzeit weiter auf Grundlagen, die der Markt möglicherweise bereits entwertet.
+              Wer diese Entwicklung erst im nächsten Planungszyklus prüft, entscheidet weiter auf
+              Annahmen von gestern.
             </div>
           </div>
         </section>
@@ -477,6 +488,28 @@ export default function Home() {
                   <span>{text}</span>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section executive-summary" id="fazit">
+          <div className="shell">
+            <div className="executive-summary-head" data-reveal>
+              <div className="section-index">08 · Fazit / Entscheidungspunkt</div>
+              <h2>Vier Entwicklungen. Eine Managementfrage.</h2>
+            </div>
+            <div className="executive-summary-grid">
+              <p className="executive-core" data-reveal>
+                Junge Käufer brechen weg. Neue Nutzungsrituale entstehen. Plattformen besetzen den
+                Kundenzugang. Und viele Verlage planen noch mit der Marktlogik von gestern.
+              </p>
+              <div className="executive-question" data-reveal>
+                <span>Die strategische Frage</span>
+                <strong>
+                  Welche Annahmen über Kunden, Nutzung und Wertschöpfung tragen noch – und welche
+                  müssen jetzt neu entschieden werden?
+                </strong>
+              </div>
             </div>
           </div>
         </section>
